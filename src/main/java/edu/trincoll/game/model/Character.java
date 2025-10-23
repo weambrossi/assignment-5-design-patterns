@@ -76,6 +76,14 @@ public class Character {
         stats = stats.withHealth(stats.health() + amount);
     }
 
+    /**
+     * Set health directly (used for command undo operations and testing).
+     * Use with caution - bypasses defense calculations.
+     */
+    public void setHealth(int health) {
+        stats = stats.withHealth(health);
+    }
+
     // Mana management
     public void useMana(int amount) {
         if (stats.mana() < amount) {

@@ -109,8 +109,8 @@ class StrategyPatternTest {
                 new MeleeAttackStrategy(),
                 new StandardDefenseStrategy()
             );
-            // Set health to 25% (25/100)
-            lowHealthTarget.takeDamage(75);
+            // Set health to 25% directly - use setHealth to avoid defense calculation
+            lowHealthTarget.setHealth(25);
 
             int damage = strategy.calculateDamage(attacker, lowHealthTarget);
 

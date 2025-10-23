@@ -14,9 +14,9 @@ import edu.trincoll.game.model.Character;
  * 4. Calculate actual healing done (after - before)
  *
  * Requirements for undo():
- * 1. Damage the target for the amount that was actually healed
- * 2. Use target.takeDamage(actualHealingDone)
- * 3. This will bypass defense and restore exact previous health
+ * 1. Restore health to before healing
+ * 2. Use target.setHealth() to set health directly
+ *    (Can't use takeDamage as it applies defense)
  *
  * Note: Need to track actual healing because you can't heal above max health.
  */
