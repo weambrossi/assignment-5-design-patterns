@@ -1,6 +1,7 @@
 plugins {
     java
     jacoco
+    application
 }
 
 group = "edu.trincoll"
@@ -58,4 +59,8 @@ tasks.jacocoTestCoverageVerification {
 // Add coverage verification to check task
 tasks.check {
     dependsOn(tasks.jacocoTestCoverageVerification)
+}
+
+application {
+    mainClass = "edu.trincoll.game.demo.GameDemo"
 }
