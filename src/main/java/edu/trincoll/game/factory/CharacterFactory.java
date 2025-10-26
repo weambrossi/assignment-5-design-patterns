@@ -95,10 +95,10 @@ public class CharacterFactory {
      */
     public static Character createRogue(String name) {
         // TODO 2d: Implement rogue creation
-        CharacterStats stats = new CharacterStats(80, 80, 60, 10, 100, 100);
-        return Character.builder().name(name).type(CharacterType.MAGE)
+        CharacterStats stats = new CharacterStats(90, 90, 55, 20, 30, 30);
+        return Character.builder().name(name).type(CharacterType.ROGUE)
                 .stats(stats)
-                .attackStrategy((new MagicAttackStrategy()))
+                .attackStrategy((new MeleeAttackStrategy()))
                 .defenseStrategy(new StandardDefenseStrategy()).build();
     }
 
@@ -119,6 +119,15 @@ public class CharacterFactory {
      */
     public static Character createCharacter(String name, CharacterType type) {
         // TODO 2e: Implement factory method with switch expression
-        throw new UnsupportedOperationException("TODO 2e: Implement createCharacter()");
+        if (type == null) {
+            throw new IllegalArgumentException("Character type cannot be null");
+        }
+        return switch (type) {
+            case WARRIOR -> createWarrior(name);
+            case MAGE -> createMage(name);
+            case ARCHER -> createArcher(name);
+            case ROGUE -> createRogue(name);
+            default -> throw new IllegalArgumentException("Unknown character type: " + type);
+        };
     }
 }
