@@ -175,20 +175,20 @@ public class Character {
          */
         public Character build() {
             if (name == null || name.isBlank()) {
-                throw new IllegalStateException("Name cannot be blank");
+                throw new IllegalStateException("name cannot be blank");
             }
             if (type == null) {
-                throw new IllegalStateException("Type cannot be null");
+                throw new IllegalStateException("type cannot be null");
             }
             if (stats == null) {
-                throw new IllegalStateException("Stats cannot be null");
+                throw new IllegalStateException("stats cannot be null");
             }
             if (attackStrategy == null) {
-                throw new IllegalStateException("Attack Strategy cannot be null");
+                throw new IllegalStateException("attackStrategy cannot be null");
 
             }
             if (defenseStrategy == null) {
-                throw new IllegalStateException("Defense Strategy cannot be null");
+                throw new IllegalStateException("defenseStrategy cannot be null");
             }
             return new Character(name, type, stats, attackStrategy, defenseStrategy);
         }
