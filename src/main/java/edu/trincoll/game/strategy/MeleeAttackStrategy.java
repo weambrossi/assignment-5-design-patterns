@@ -22,6 +22,7 @@ public class MeleeAttackStrategy implements AttackStrategy {
     @Override
     public int calculateDamage(Character attacker, Character target) {
         // TODO 1a: Implement melee attack calculation
-        throw new UnsupportedOperationException("TODO 1a: Implement melee attack calculation");
+        int damage = (int) (attacker.getStats().attackPower() * 1.2);
+        return damage;
     }
 }

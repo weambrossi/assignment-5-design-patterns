@@ -27,7 +27,12 @@ import edu.trincoll.game.model.Character;
 public class HeavyArmorDefenseStrategy implements DefenseStrategy {
     @Override
     public int calculateDamageReduction(Character defender, int incomingDamage) {
-        // TODO 1e: Implement heavy armor defense with cap
-        throw new UnsupportedOperationException("TODO 1e: Implement heavy armor defense calculation");
+        int damageReduction = defender.getStats().defense();
+        int actualDamage = incomingDamage - damageReduction;
+        if (damageReduction >= 80) {
+            actualDamage = (int) (incomingDamage * 0.25);
+        }
+
+        return actualDamage;
     }
 }
