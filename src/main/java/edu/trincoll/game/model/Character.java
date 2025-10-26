@@ -174,8 +174,23 @@ public class Character {
          * while ensuring all required fields are provided before construction.
          */
         public Character build() {
-            // TODO: Implement validation and construction
-            throw new UnsupportedOperationException("TODO 3: Implement build() method");
+            if (name == null || name.isBlank()) {
+                throw new IllegalStateException("Name cannot be blank");
+            }
+            if (type == null) {
+                throw new IllegalStateException("Type cannot be null");
+            }
+            if (stats == null) {
+                throw new IllegalStateException("Stats cannot be null");
+            }
+            if (attackStrategy == null) {
+                throw new IllegalStateException("Attack Strategy cannot be null");
+
+            }
+            if (defenseStrategy == null) {
+                throw new IllegalStateException("Defense Strategy cannot be null");
+            }
+            return new Character(name, type, stats, attackStrategy, defenseStrategy);
         }
     }
 

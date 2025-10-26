@@ -30,7 +30,12 @@ public class CharacterFactory {
      */
     public static Character createWarrior(String name) {
         // TODO 2a: Implement warrior creation
-        throw new UnsupportedOperationException("TODO 2a: Implement createWarrior()");
+        CharacterStats stats = new CharacterStats(150, 150, 40, 30, 0, 0);
+        //throw new UnsupportedOperationException("TODO 2a: Implement createWarrior()");
+        return Character.builder().name(name).type(CharacterType.WARRIOR)
+                .stats(stats)
+                .attackStrategy(new MeleeAttackStrategy())
+                .defenseStrategy(new HeavyArmorDefenseStrategy()).build();
     }
 
     /**
@@ -47,7 +52,12 @@ public class CharacterFactory {
      */
     public static Character createMage(String name) {
         // TODO 2b: Implement mage creation
-        throw new UnsupportedOperationException("TODO 2b: Implement createMage()");
+        CharacterStats stats = new CharacterStats(80, 80, 60, 10, 100, 100);
+        return Character.builder().name(name).type(CharacterType.MAGE)
+                .stats(stats)
+                .attackStrategy((new MagicAttackStrategy()))
+                .defenseStrategy(new StandardDefenseStrategy()).build();
+
     }
 
     /**
@@ -64,7 +74,11 @@ public class CharacterFactory {
      */
     public static Character createArcher(String name) {
         // TODO 2c: Implement archer creation
-        throw new UnsupportedOperationException("TODO 2c: Implement createArcher()");
+        CharacterStats stats = new CharacterStats(100, 100, 50, 15, 20, 20);
+        return Character.builder().name(name).type(CharacterType.ARCHER)
+                .stats(stats)
+                .attackStrategy((new RangedAttackStrategy()))
+                .defenseStrategy(new StandardDefenseStrategy()).build();
     }
 
     /**
@@ -81,7 +95,11 @@ public class CharacterFactory {
      */
     public static Character createRogue(String name) {
         // TODO 2d: Implement rogue creation
-        throw new UnsupportedOperationException("TODO 2d: Implement createRogue()");
+        CharacterStats stats = new CharacterStats(80, 80, 60, 10, 100, 100);
+        return Character.builder().name(name).type(CharacterType.MAGE)
+                .stats(stats)
+                .attackStrategy((new MagicAttackStrategy()))
+                .defenseStrategy(new StandardDefenseStrategy()).build();
     }
 
     /**
