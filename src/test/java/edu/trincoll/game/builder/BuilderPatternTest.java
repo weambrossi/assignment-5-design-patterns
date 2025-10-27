@@ -170,5 +170,96 @@ class BuilderPatternTest {
                 .as("Custom warrior has mana")
                 .isEqualTo(50);
         }
+
+        // ------------------------------------------------------------
+// Helper to create a default Character for testing
+// ------------------------------------------------------------
+        private Character makeTestCharacter(String name) {
+            CharacterStats stats = new CharacterStats(100, 100, 40, 20, 50, 50);
+            return Character.builder()
+                    .name(name)
+                    .type(CharacterType.WARRIOR)
+                    .stats(stats)
+                    .attackStrategy(new MeleeAttackStrategy())
+                    .defenseStrategy(new StandardDefenseStrategy())
+                    .build();
+        }
+
+// ------------------------------------------------------------
+// Tests for uncovered Character methods
+// ------------------------------------------------------------
+
+        @Test
+        void toString_includesNameTypeAndStats() {
+            Character c = makeTestCharacter("Alice");
+            String result = c.toString();
+            assertThat(result).contains("Alice", "WARRIOR", "HP:");
+        }
+
+        @Test
+        void equals_sameNameAndType_returnsTrueAndHashMatches() {
+            Character a = makeTestCharacter("Alice");
+            Character b = makeTestCharacter("Alice");
+            assertThat(a.equals(b)).isTrue();
+            assertThat(a.hashCode()).isEqualTo(b.hashCode());
+        }
+
+        @Test
+        void equals_differentName_returnsFalse() {
+            Character a = makeTestCharacter("Alice");
+            Character b = makeTestCharacter("Bob");
+            assertThat(a.equals(b)).isFalse();
+        }
+
+        @Test
+        void equals_null_returnsFalse() {
+            Character a = makeTestCharacter("Alice");
+            assertThat(a.equals(null)).isFalse();
+        }
+
+        @Test
+        void equals_differentClass_returnsFalse() {
+            Character a = makeTestCharacter("Alice");
+            assertThat(a.equals("not a character")).isFalse();
+        }
+
+        @Test
+        void restoreMana_increasesMana() {
+            Character c = makeTestCharacter("Alice");
+            int before = c.getStats().mana();
+            c.restoreMana(10);
+            assertThat(c.getStats().mana()).isEqualTo(before);
+        }
+
+        @Test
+        void useMana_throwsWhenNotEnoughMana() {
+            CharacterStats lowManaStats = new CharacterStats(100, 100, 40, 20, 5, 10);
+            Character c = Character.builder()
+                    .name("LowMana")
+                    .type(CharacterType.WARRIOR)
+                    .stats(lowManaStats)
+                    .attackStrategy(new MeleeAttackStrategy())
+                    .defenseStrategy(new StandardDefenseStrategy())
+                    .build();
+
+            assertThatThrownBy(() -> c.useMana(20))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessageContaining("Not enough mana");
+        }
+
+        @Test
+        void isAlive_trueWhenHealthPositive_isDeadFalse() {
+            Character c = makeTestCharacter("Alice");
+            assertThat(c.isAlive()).isTrue();
+            assertThat(c.isDead()).isFalse();
+        }
+
+        @Test
+        void isDead_trueWhenHealthZero_isAliveFalse() {
+            Character c = makeTestCharacter("Alice");
+            c.setHealth(0);
+            assertThat(c.isDead()).isTrue();
+            assertThat(c.isAlive()).isFalse();
+        }
     }
 }
