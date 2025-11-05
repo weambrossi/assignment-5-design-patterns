@@ -31,14 +31,18 @@ public class AttackCommand implements GameCommand {
 
     @Override
     public void execute() {
-        // TODO 4a: Implement attack execution
-        throw new UnsupportedOperationException("TODO 4a: Implement AttackCommand.execute()");
+        int healthBefore = target.getStats().health();
+        int damage = attacker.attack(target);
+        target.takeDamage(damage);
+        int healthAfter = target.getStats().health();
+        // Store the actual net damage dealt (accounts for defense)
+        damageDealt = Math.max(0, healthBefore - healthAfter);
     }
 
     @Override
     public void undo() {
-        // TODO 4a: Implement attack undo
-        throw new UnsupportedOperationException("TODO 4a: Implement AttackCommand.undo()");
+        // Restore the target's health by the exact damage dealt
+        target.heal(damageDealt);
     }
 
     @Override

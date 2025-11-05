@@ -24,6 +24,7 @@ public class HealCommand implements GameCommand {
     private final Character target;
     private final int amount;
     private int actualHealingDone;
+    private int healthBefore;
 
     public HealCommand(Character target, int amount) {
         this.target = target;
@@ -32,14 +33,16 @@ public class HealCommand implements GameCommand {
 
     @Override
     public void execute() {
-        // TODO 4b: Implement heal execution
-        throw new UnsupportedOperationException("TODO 4b: Implement HealCommand.execute()");
+        healthBefore = target.getStats().health();
+        target.heal(amount);
+        int healthAfter = target.getStats().health();
+        actualHealingDone = Math.max(0, healthAfter - healthBefore);
     }
 
     @Override
     public void undo() {
-        // TODO 4b: Implement heal undo
-        throw new UnsupportedOperationException("TODO 4b: Implement HealCommand.undo()");
+        // Restore to exact pre-heal health without applying defense
+        target.setHealth(healthBefore);
     }
 
     @Override
